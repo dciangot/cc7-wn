@@ -1,4 +1,4 @@
-FROM cern/cc7-base:20161206
+FROM cern/cc7-base:20170113
 
 # Add the extra system stuff we need
 
