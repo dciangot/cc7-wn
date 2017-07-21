@@ -1,4 +1,3 @@
-#FROM cern/cc7-base:20170113
 FROM centos:centos7
 MAINTAINER Diego Ciangottini <diego.ciangottini@gmail.com>
 ENV        TINI_VERSION v0.9.0
@@ -16,12 +15,10 @@ RUN yum -y install wget
 RUN wget -O /etc/yum.repos.d/centos-7-x86_64.repo http://repository.egi.eu/community/software/preview.repository/2.0/releases/repofiles/centos-7-x86_64.repo
 
 RUN wget -O HEP.rpm http://linuxsoft.cern.ch/wlcg/centos7/x86_64/HEP_OSlibs-7.1.9-0.el7.cern.x86_64.rpm 
-# RUN wget -O singularity.rpm https://repo.grid.iu.edu/osg/3.3/osg-3.3-el7-release-latest.rpm
-# RUN rpm -Uhv singularity.rpm && yum install -y --enablerepo=osg-upcoming-development singularity
 RUN yum install -y singularity
 
-#RUN yum -y install wn systemd
-RUN yum -y install voms xrootd-client gfal2 gfal2-util systemd
+RUN yum -y install wn systemd
+#RUN yum -y install voms xrootd-client gfal2 gfal2-util systemd
  
 RUN groupadd -r condor && \
     useradd -r -g condor -d /var/lib/condor -s /sbin/nologin condor
@@ -70,5 +67,5 @@ RUN yum clean all
 RUN     ln -s /usr/lib64/condor /usr/lib/condor
 RUN     ln -s /usr/libexec/condor /usr/lib/condor/libexec
 
-#ENTRYPOINT ["/sbin/tini", "--", "/usr/local/sbin/run.sh"]
-CMD ['/h']
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/sbin/run.sh"]
+#CMD ['/h']
